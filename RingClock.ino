@@ -1,14 +1,15 @@
 #include <Wire.h>
 #include "RTClib.h"
 
+//Ration of Clock wheel to drive wheel
+#define WHEEL_RATIO 1
+
+
 void setup() {
-  // put your setup code here, to run once:
-  Serial.begin(57600);
   Wire.begin();
   RTC.begin();
   //Check if RTC running, if not Set time.
   if (! RTC.isrunning()) {
-  Serial.println("RTC is NOT running!");
   //Sets RTC to Time Sketch Uploaded
   RTC.adjust(DateTime(__DATE__, __TIME__));
   }
