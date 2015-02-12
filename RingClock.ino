@@ -22,8 +22,8 @@
 //Ratio of Drive wheel to Clock wheel x:1
 #define WHEEL_RATIO 1
 
+RTC_DS1307 RTC;
 DateTime currentTime;
-DateTime *time;
 
 void setup() {
   Wire.begin();
@@ -34,23 +34,22 @@ void setup() {
   RTC.adjust(DateTime(__DATE__, __TIME__));
   }
   
-  time = &currentTime;
-  *time = RTC.now();
+  currentTime = RTC.now();
   //Sets the Initial time of the clock from 12.
-  setTime(*time);
+  setTime(currentTime);
 }
 
 void loop() {
   int hour, minute;
-  *time = RTC.now();
+  currentTime = RTC.now();
   hour = currentTime.hour();
   minute = currentTime.minute();
 
 }
 
-void setTime(Datetime *initalTime) {
+void setTime(Datetime initalTime) {
   int totalMins, counter;
-  totalMins = *initialTime.hour()*60 + *initialTime.min();
+  totalMins = initialTime.hour()*60 + initialTime.minute();
   counter = 0;
   
   while (counter < totalMins) {
