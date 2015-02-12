@@ -47,7 +47,7 @@ void loop() {
 
 }
 
-void setTime(Datetime initalTime) {
+void setTime(DateTime initialTime) {
   int totalMins, counter;
   totalMins = initialTime.hour()*60 + initialTime.minute();
   counter = 0;
@@ -57,4 +57,7 @@ void setTime(Datetime initalTime) {
     counter++;
   }
  
+}
+
+void incrementServo() {
 }
