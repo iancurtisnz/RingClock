@@ -24,8 +24,10 @@
 
 RTC_DS1307 RTC;
 DateTime currentTime;
+const DateTime *time = &currentTime;
 
 void setup() {
+  Serial.begin(57600);
   Wire.begin();
   RTC.begin();
   //Check if RTC running, if not Set time.
@@ -36,7 +38,8 @@ void setup() {
   
   currentTime = RTC.now();
   //Sets the Initial time of the clock from 12.
-  setTime(currentTime);
+  setTime(&currentTime);
+  Serial.println(time->hour());
 }
 
 void loop() {
@@ -47,9 +50,9 @@ void loop() {
 
 }
 
-void setTime(DateTime initialTime) {
+void setTime(DateTime *initialTime) {
   int totalMins, counter;
-  totalMins = initialTime.hour()*60 + initialTime.minute();
+  totalMins = initialTime->hour()*60 + initialTime->minute();
   counter = 0;
   
   while (counter < totalMins) {
