@@ -22,10 +22,15 @@
 
 //Ratio of Drive wheel to Clock wheel x:1
 #define WHEEL_RATIO 1
+//Initial values for the servo
+#define INITIAL_RESETSERVO 0
+#define INITIAL_CLOCKSERVO 0
 
 RTC_DS1307 RTC;
 DateTime currentTime;
 const DateTime *time = &currentTime;
+
+int minCounter = 0;
 
 Servo resetServo;
 Servo clockServo;
@@ -34,14 +39,13 @@ void setup() {
   Wire.begin();
     //Sets RTC to Time Sketch Uploaded
   RTC.adjust(DateTime(__DATE__, __TIME__));
-  
   currentTime = RTC.now();
-  //Sets the Initial time of the clock from 12.
-  setTime(&currentTime);
   
   resetServo.attach(9);
   clockServo.attach(10);
-  
+  //Sets the servos to their initial starting point. 
+  resetServo.write(INITIAL_RESETSERVO);
+  clockServo.write(INITIAL_CLOCKSERVO);
   //Serial Printouts to check Function 
   //(remove comment block to use)
   /*
@@ -53,6 +57,9 @@ void setup() {
   Serial.print("day: ");
   Serial.println(time->day());
   */
+  
+  //Sets the Initial time of the clock from 12.
+  setTime(&currentTime);
 }
 
 void loop() {
@@ -78,4 +85,6 @@ void setTime(DateTime *initialTime) {
 }
 
 void incrementServo() {
+
+    
 }
