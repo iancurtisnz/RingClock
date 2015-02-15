@@ -25,6 +25,7 @@
 //Initial values for the servo
 #define INITIAL_RESETSERVO 0
 #define INITIAL_CLOCKSERVO 0
+#define SERVO_RESET_RANGE 60
 
 RTC_DS1307 RTC;
 DateTime currentTime;
@@ -46,6 +47,7 @@ void setup() {
   //Sets the servos to their initial starting point. 
   resetServo.write(INITIAL_RESETSERVO);
   clockServo.write(INITIAL_CLOCKSERVO);
+  
   //Serial Printouts to check Function 
   //(remove comment block to use)
   /*
@@ -85,6 +87,9 @@ void setTime(DateTime *initialTime) {
 }
 
 void incrementServo() {
-
-    
+  if(clockServo.read() < (SERVO_RESET_RANGE + INITIAL_CLOCKSERVO)) {
+    clockServo.write(//NEED TO CALCULATE VALUE THAT NEEDS TO BE
+    //WRITTEN GIVEN THE CURRENT HOUR, MIN, HOW ClOSE TO RESET etc)
+    );
+  }
 }
