@@ -17,6 +17,7 @@
 
 #include <Wire.h>
 #include "RTClib.h"
+#include <Servo.h>
 //720mins in 12 hours
 
 //Ratio of Drive wheel to Clock wheel x:1
@@ -25,6 +26,9 @@
 RTC_DS1307 RTC;
 DateTime currentTime;
 const DateTime *time = &currentTime;
+
+Servo resetServo;
+Servo clockServo;
 
 void setup() {
   Wire.begin();
@@ -35,7 +39,11 @@ void setup() {
   //Sets the Initial time of the clock from 12.
   setTime(&currentTime);
   
-  //Serial Printouts to check Function (remove comment block to use)
+  resetServo.attach(9);
+  clockServo.attach(10);
+  
+  //Serial Printouts to check Function 
+  //(remove comment block to use)
   /*
   Serial.begin(57600);
   Serial.print("hour: ");
