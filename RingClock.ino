@@ -27,19 +27,24 @@ DateTime currentTime;
 const DateTime *time = &currentTime;
 
 void setup() {
-  Serial.begin(57600);
   Wire.begin();
-  RTC.begin();
-  //Check if RTC running, if not Set time.
-  if (! RTC.isrunning()) {
-  //Sets RTC to Time Sketch Uploaded
+    //Sets RTC to Time Sketch Uploaded
   RTC.adjust(DateTime(__DATE__, __TIME__));
-  }
   
   currentTime = RTC.now();
   //Sets the Initial time of the clock from 12.
   setTime(&currentTime);
+  
+  //Serial Printouts to check Function (remove comment block to use)
+  /*
+  Serial.begin(57600);
+  Serial.print("hour: ");
   Serial.println(time->hour());
+  Serial.print("minute: ");
+  Serial.println(time->minute());
+  Serial.print("day: ");
+  Serial.println(time->day());
+  */
 }
 
 void loop() {
@@ -54,7 +59,9 @@ void setTime(DateTime *initialTime) {
   int totalMins, counter;
   totalMins = initialTime->hour()*60 + initialTime->minute();
   counter = 0;
-  
+  //Serial Printouts to check Function (remove comment to use)
+  //Serial.print("Total Minutes passed in day: ");
+  //Serial.println(totalMins);
   while (counter < totalMins) {
     incrementServo();
     counter++;
