@@ -25,7 +25,9 @@
 //Initial values for the servo
 #define INITIAL_RESETSERVO 0
 #define INITIAL_CLOCKSERVO 0
-#define SERVO_RESET_RANGE 60
+#define CLOCKSERVO_RESET 60
+#define RESETSERVO_ANGLE 30
+
 
 RTC_DS1307 RTC;
 DateTime currentTime;
@@ -37,59 +39,57 @@ Servo resetServo;
 Servo clockServo;
 
 void setup() {
-  Wire.begin();
+    Wire.begin();
     //Sets RTC to Time Sketch Uploaded
-  RTC.adjust(DateTime(__DATE__, __TIME__));
-  currentTime = RTC.now();
-  
-  resetServo.attach(9);
-  clockServo.attach(10);
-  //Sets the servos to their initial starting point. 
-  resetServo.write(INITIAL_RESETSERVO);
-  clockServo.write(INITIAL_CLOCKSERVO);
-  
-  //Serial Printouts to check Function 
-  //(remove comment block to use)
-  /*
-  Serial.begin(57600);
-  Serial.print("hour: ");
-  Serial.println(time->hour());
-  Serial.print("minute: ");
-  Serial.println(time->minute());
-  Serial.print("day: ");
-  Serial.println(time->day());
-  */
-  
-  //Sets the Initial time of the clock from 12.
-  setTime(&currentTime);
+    RTC.adjust(DateTime(__DATE__, __TIME__));
+    currentTime = RTC.now();
+
+    resetServo.attach(9);
+    clockServo.attach(10);
+    //Sets the servos to their initial starting point. 
+    resetServo.write(INITIAL_RESETSERVO);
+    clockServo.write(INITIAL_CLOCKSERVO);
+
+    //Serial Printouts to check Function 
+    //(remove comment block to use)
+    /*
+    Serial.begin(57600);
+    Serial.print("hour: ");
+    Serial.println(time->hour());
+    Serial.print("minute: ");
+    Serial.println(time->minute());
+    Serial.print("day: ");
+    Serial.println(time->day());
+    */
+
+    //Sets the Initial time of the clock from 12.
+    setTime(&currentTime);
 }
 
 void loop() {
-  int hour, minute;
-  currentTime = RTC.now();
-  hour = currentTime.hour();
-  minute = currentTime.minute();
-
+    int hour, minute;
+    currentTime = RTC.now();
+    hour = currentTime.hour();
+    minute = currentTime.minute();
 }
 
 void setTime(DateTime *initialTime) {
-  int totalMins, counter;
-  totalMins = initialTime->hour()*60 + initialTime->minute();
-  counter = 0;
-  //Serial Printouts to check Function (remove comment to use)
-  //Serial.print("Total Minutes passed in day: ");
-  //Serial.println(totalMins);
-  while (counter < totalMins) {
-    incrementServo();
-    counter++;
-  }
+    int totalMins, counter;
+    totalMins = initialTime->hour()*60 + initialTime->minute();
+    counter = 0;
+    //Serial Printouts to check Function (remove comment to use)
+    //Serial.print("Total Minutes passed in day: ");
+    //Serial.println(totalMins);
+    
+    while (counter < totalMins) {
+        incrementServo();
+        counter++;
+    }
  
 }
 
 void incrementServo() {
-  if(clockServo.read() < (SERVO_RESET_RANGE + INITIAL_CLOCKSERVO)) {
-    clockServo.write(//NEED TO CALCULATE VALUE THAT NEEDS TO BE
-    //WRITTEN GIVEN THE CURRENT HOUR, MIN, HOW ClOSE TO RESET etc)
-    );
-  }
+    if(clockServo.read() < (CLOCKSERVO_RESET + INITIAL_CLOCKSERVO)) {
+        clockServo.write(clockServo.read()+ (WHEEL_RATIO*(1/720));
+    }
 }
