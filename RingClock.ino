@@ -90,6 +90,13 @@ void setTime(DateTime *initialTime) {
 
 void incrementServo() {
     if(clockServo.read() < (CLOCKSERVO_RESET + INITIAL_CLOCKSERVO)) {
-        clockServo.write(clockServo.read()+ (WHEEL_RATIO*(1/720));
+        clockServo.write(clockServo.read() + (WHEEL_RATIO*(1/720));
     }
+    else {
+        resetServo();
+        clockServo.write(clockServo.read() + (WHEEL_RATIO*(1/720));
+    }
+}
+
+void resetServo() {
 }
