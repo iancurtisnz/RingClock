@@ -73,6 +73,10 @@ void loop() {
     minute = currentTime.minute();
 }
 
+/** Sets the time on the clock relatively to 12 (start clock in this
+    position.
+    DateTime *initialTime Pointer to the current time on the RTC
+*/
 void setTime(DateTime *initialTime) {
     int totalMins, counter;
     totalMins = initialTime->hour()*60 + initialTime->minute();
@@ -88,6 +92,9 @@ void setTime(DateTime *initialTime) {
  
 }
 
+/** Increments the Clock servo by one minute and calls the reset
+*   if it is at the reset limit specified.
+*/
 void incrementServo() {
     if(clockServo.read() < (CLOCKSERVO_RESET + INITIAL_CLOCKSERVO)) {
         clockServo.write(clockServo.read() + (WHEEL_RATIO*(1/720));
@@ -98,5 +105,7 @@ void incrementServo() {
     }
 }
 
+/** Resets the clock servo back to its initial value
+*/
 void resetServo() {
 }
