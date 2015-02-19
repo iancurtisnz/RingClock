@@ -96,13 +96,10 @@ void setTime(DateTime *initialTime) {
 *   if it is at the reset limit specified.
 */
 void incrementServo() {
-    if(clockServo.read() < (CLOCKSERVO_RESET + INITIAL_CLOCKSERVO)) {
-        clockServo.write(clockServo.read() + (WHEEL_RATIO*(1/720));
-    }
-    else {
+    if(clockServo.read() >= (CLOCKSERVO_RESET + INITIAL_CLOCKSERVO)) {
         resetServo();
-        clockServo.write(clockServo.read() + (WHEEL_RATIO*(1/720));
     }
+    clockServo.write(clockServo.read() + (WHEEL_RATIO*(1/720));
 }
 
 /** Resets the clock servo back to its initial value
