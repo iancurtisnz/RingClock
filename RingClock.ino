@@ -72,10 +72,7 @@ void loop() {
     currentTime = RTC.now();
     current_minute = currentTime.minute();
     
-    if (current_minute != previous_minute) {
-        incrementTimeServo();
-        previous_minute = current_minute;
-    }
+    checkMinute(current_minute);
 }
 
 /** Sets the time on the clock relatively to 12 (start clock in this
@@ -119,4 +116,14 @@ void resetClockServo() {
   //Re-engage Clock Servo
   resetServo.write(INITIAL_RESETSERVO);
   delay(500);
+}
+
+/** Checks if the Minute is the same as the last if not increments
+    the timeservo and reassigns previous minute to current minute.
+*/
+void checkMinute(int current_minute) {
+    if (current_minute != previous_minute) {
+        incrementTimeServo();
+        previous_minute = current_minute;
+    }
 }
