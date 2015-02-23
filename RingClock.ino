@@ -33,7 +33,7 @@ RTC_DS1307 RTC;
 DateTime currentTime;
 const DateTime *time = &currentTime;
 
-int minCounter = 0;
+int previous_minute, minCounter = 0;
 
 Servo resetServo;
 Servo clockServo;
@@ -67,9 +67,8 @@ void setup() {
 }
 
 void loop() {
-    int hour, minute;
+    int current_minute;
     currentTime = RTC.now();
-    hour = currentTime.hour();
     minute = currentTime.minute();
 }
 
@@ -89,7 +88,6 @@ void setTime(DateTime *initialTime) {
         incrementServo();
         counter++;
     }
- 
 }
 
 /** Increments the Clock servo by one minute and calls the reset
@@ -100,7 +98,7 @@ void incrementServo() {
         resetClockServo();
     }
     //Increment by one minute
-    clockServo.write(clockServo.read() + (WHEEL_RATIO*(1/720));
+    clockServo.write(clockServo.read() + (WHEEL_RATIO*(1/720)));
 }
 
 /** Resets the clock servo back to its initial value
