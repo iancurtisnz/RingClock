@@ -120,6 +120,7 @@ void resetClockServo() {
 
 /** Checks if the Minute is the same as the last if not increments
     the timeservo and reassigns previous minute to current minute.
+    int current_minute integer of the current minute past the hour
 */
 void checkMinute(int current_minute) {
     if (current_minute != previous_minute) {
