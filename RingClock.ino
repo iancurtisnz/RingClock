@@ -43,6 +43,7 @@ void setup() {
     //Sets RTC to Time Sketch Uploaded
     RTC.adjust(DateTime(__DATE__, __TIME__));
     currentTime = RTC.now();
+    previous_minute = currentTime.minute();
 
     resetServo.attach(9);
     clockServo.attach(10);
@@ -69,7 +70,9 @@ void setup() {
 void loop() {
     int current_minute;
     currentTime = RTC.now();
-    minute = currentTime.minute();
+    current_minute = currentTime.minute();
+    
+    if (current_minute != previous_minute
 }
 
 /** Sets the time on the clock relatively to 12 (start clock in this
