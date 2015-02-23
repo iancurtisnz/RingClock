@@ -72,7 +72,10 @@ void loop() {
     currentTime = RTC.now();
     current_minute = currentTime.minute();
     
-    if (current_minute != previous_minute
+    if (current_minute != previous_minute) {
+        incrementTimeServo();
+        previous_minute = current_minute;
+    }
 }
 
 /** Sets the time on the clock relatively to 12 (start clock in this
@@ -88,7 +91,7 @@ void setTime(DateTime *initialTime) {
     //Serial.println(totalMins);
     
     while (counter < totalMins) {
-        incrementServo();
+        incrementTimeServo();
         counter++;
     }
 }
@@ -96,7 +99,7 @@ void setTime(DateTime *initialTime) {
 /** Increments the Clock servo by one minute and calls the reset
 *   if it is at the reset limit specified.
 */
-void incrementServo() {
+void incrementTimeServo() {
     if(clockServo.read() >= (CLOCKSERVO_RESET + INITIAL_CLOCKSERVO)) {
         resetClockServo();
     }
