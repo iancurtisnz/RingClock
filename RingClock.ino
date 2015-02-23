@@ -99,12 +99,20 @@ void incrementServo() {
     if(clockServo.read() >= (CLOCKSERVO_RESET + INITIAL_CLOCKSERVO)) {
         resetClockServo();
     }
+    //Increment by one minute
     clockServo.write(clockServo.read() + (WHEEL_RATIO*(1/720));
 }
 
 /** Resets the clock servo back to its initial value
 */
 void resetClockServo() {
-  
-  clockServo.write(clockServo.read() + (WHEEL_RATIO*(1/720));
+  //Disengage Clock Servo
+  resetServo.write(RESETSERVO_ANGLE);
+  delay(500);
+  //Reset Clock Servo back to initial Value
+  clockServo.write(INITIAL_CLOCKSERVO);
+  delay(500);
+  //Re-engage Clock Servo
+  resetServo.write(INITIAL_RESETSERVO);
+  delay(500);
 }
