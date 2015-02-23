@@ -97,12 +97,14 @@ void setTime(DateTime *initialTime) {
 */
 void incrementServo() {
     if(clockServo.read() >= (CLOCKSERVO_RESET + INITIAL_CLOCKSERVO)) {
-        resetServo();
+        resetClockServo();
     }
     clockServo.write(clockServo.read() + (WHEEL_RATIO*(1/720));
 }
 
 /** Resets the clock servo back to its initial value
 */
-void resetServo() {
+void resetClockServo() {
+  
+  clockServo.write(clockServo.read() + (WHEEL_RATIO*(1/720));
 }
