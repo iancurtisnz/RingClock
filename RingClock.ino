@@ -128,3 +128,10 @@ void checkMinute(int current_minute) {
         previous_minute = current_minute;
     }
 }
+
+/** repeats the servo reset motion and moving the clock an hour forward
+    so the parameters can be set for the Servos
+*/
+void setupServos() {
+    
+}
